@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMVC", "ConsoleMVC\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport", "Transport\Transport.csproj", "{396357EA-EA25-42CA-931C-B03D4B0C5132}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vegetables", "Vegetables\Vegetables.csproj", "{C7ED0751-0069-4BAE-A7CD-F98EB97DABFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7ED0751-0069-4BAE-A7CD-F98EB97DABFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7ED0751-0069-4BAE-A7CD-F98EB97DABFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7ED0751-0069-4BAE-A7CD-F98EB97DABFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7ED0751-0069-4BAE-A7CD-F98EB97DABFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
