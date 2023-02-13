@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleMVC", "ConsoleMVC\ConsoleMVC.csproj", "{46333F9B-0138-4216-A75F-C4D6FF042D4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport", "Transport\Transport.csproj", "{396357EA-EA25-42CA-931C-B03D4B0C5132}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{46333F9B-0138-4216-A75F-C4D6FF042D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46333F9B-0138-4216-A75F-C4D6FF042D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46333F9B-0138-4216-A75F-C4D6FF042D4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396357EA-EA25-42CA-931C-B03D4B0C5132}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
