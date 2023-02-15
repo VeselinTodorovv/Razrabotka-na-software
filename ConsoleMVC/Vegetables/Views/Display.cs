@@ -14,18 +14,13 @@ public class Display
         GetValues();
     }
     
-    [Range(1, 1000)]
     public double VegetablePrice { get; private set; }
-    [Range(1, 1000)]
     public double FruitPrice { get; private set; }
-    [Range(1, 1000)]
     public int VegetableTotal { get; private set; }
-    [Range(1, 1000)]
     public int FruitTotal { get; private set; }
     public double Total { get; set; }
 
-    private void GetValues()
-    {
+    private void GetValues() {
         Console.WriteLine("Enter vegetables price:");
         VegetablePrice = double.Parse(Console.ReadLine()!);
         Console.WriteLine("Enter fruits price:");
@@ -37,8 +32,7 @@ public class Display
         FruitTotal = int.Parse(Console.ReadLine()!);
     }
 
-    public void ShowResult()
-    {
+    public void ShowResult() {
         Console.WriteLine(Total);
     }
 }

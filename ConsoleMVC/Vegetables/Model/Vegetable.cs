@@ -12,7 +12,7 @@ public class Vegetable
         }
     }
     private double _vegetablePrice;
-
+    
     private double FruitPrice { 
         get => _fruitPrice;
         set {
@@ -23,7 +23,7 @@ public class Vegetable
         }
     }
     private double _fruitPrice;
-
+    
     private int VegetableTotal { 
         get => _vegetableTotal;
         set {
@@ -34,7 +34,7 @@ public class Vegetable
         }
     }
     private int _vegetableTotal;
-
+    
     private int FruitTotal { 
         get => _fruitTotal;
         set {
@@ -46,8 +46,7 @@ public class Vegetable
     }
     private int _fruitTotal;
 
-    public Vegetable(double vegetablePrice, double fruitPrice, int vegetableTotal, int fruitTotal)
-    {
+    public Vegetable(double vegetablePrice, double fruitPrice, int vegetableTotal, int fruitTotal) {
         VegetablePrice = vegetablePrice;
         FruitPrice = fruitPrice;
         VegetableTotal = vegetableTotal;
@@ -55,8 +54,7 @@ public class Vegetable
     }
     public Vegetable() : this(0, 0, 0, 0) {}
 
-    public double CalculatePrice()
-    {
+    public double CalculatePrice() {
         return (VegetablePrice * VegetableTotal + FruitPrice * FruitTotal) / 1.94;
     }
 }
