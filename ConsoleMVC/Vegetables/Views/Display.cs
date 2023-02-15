@@ -4,8 +4,7 @@ namespace ConsoleApp1.Views;
 
 public class Display
 {
-    public Display()
-    {
+    public Display() {
         VegetablePrice = 0;
         FruitPrice = 0;
         VegetableTotal = 0;

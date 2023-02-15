@@ -5,8 +5,7 @@ namespace ConsoleApp1.Controllers;
 
 public class VegetableController
 {
-    public VegetableController()
-    {
+    public VegetableController() {
         Display display = new Display();
         Vegetable vegetable = new Vegetable(display.VegetablePrice, display.FruitPrice, display.VegetableTotal,
             display.FruitTotal);
