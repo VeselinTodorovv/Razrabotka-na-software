@@ -23,25 +23,18 @@ namespace Izpitvane.View
 
         public void Output()
         {
-            DetermineDestination();
             Console.WriteLine($"Somewhere in {DetermineDestination()}");
             Console.WriteLine($"{DetermineHolidayType()} - {Money:f2}");
         }
 
         private string DetermineDestination()
         {
-            switch (Money)
+            Destination = Money switch
             {
-                case <= 100:
-                    Destination = "Bulgaria";
-                    break;
-                case <= 1000:
-                    Destination = "Balkans";
-                    break;
-                default:
-                    Destination = "Europe";
-                    break;
-            }
+                <= 100 => "Bulgaria",
+                <= 1000 => "Balkans",
+                _ => "Europe"
+            };
             return Destination;
         }
 

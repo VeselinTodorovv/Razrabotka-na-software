@@ -73,7 +73,5 @@ namespace Izpitvane.Model
 
             return Money;
         }
-        
-        
     }
 }

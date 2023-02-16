@@ -5,7 +5,7 @@ namespace Izpitvane
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             BudgetController a = new BudgetController();
         }
