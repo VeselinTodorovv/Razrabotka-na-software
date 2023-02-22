@@ -2,33 +2,27 @@
 
 namespace Izpitvane.Model {
     public class Budget {
-        private double Money
-        {
+        private double Money {
             get => _money;
-            set
-            {
-                if (value is < 10 or > 5000) 
-                {
-                    throw new ArgumentOutOfRangeException($"invalid money");
+            set {
+                if (value is < 10 or > 5000) {
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
                 _money = value;
             }
         }
         private double _money;
 
-        private string Season
-        {
+        private string Season {
             get => _season;
-            set
-            {
-                if (value != "summer" && value != "winter")
-                {
+            init {
+                if (value != "summer" && value != "winter") {
                     throw new ArgumentException("invalid season");
                 }
                 _season = value;
             }
         }
-        private string _season;
+        private readonly string _season;
         
         private string Destination { get; set; }
         public Budget(double money, string season) {
@@ -44,6 +38,7 @@ namespace Izpitvane.Model {
                 
                 <= 1000 when Season == "summer" => Money / 100 * 40,
                 <= 1000 when Season == "winter" => Money / 100 * 80,
+                
                 _ => Money / 100 * 90
             };
             return Money;
