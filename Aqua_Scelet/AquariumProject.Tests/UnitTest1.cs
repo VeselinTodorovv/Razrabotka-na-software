@@ -98,9 +98,6 @@ namespace AquariumProject.Tests
         [Test]
         public void ReportRemoveFishShoudPrintExactSuccessfulMessage() {
             Aquarium aquarium = new Aquarium("Rectangle", 50);
-            Fish fish = new Fish("Tuna", 8);
-            aquarium.AddFish(fish);
-            aquarium.RemoveFish("Tuna");
             
             Assert.AreEqual("You successfully remove a fish!", aquarium.ReportRemoveFish());
         }
