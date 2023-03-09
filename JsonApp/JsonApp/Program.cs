@@ -15,8 +15,7 @@ namespace JsonApp
                 new(4, "Salt", 100.01M, 100, new DateTime(2019, 10, 30))
             };
             string jsonList = JsonConvert.SerializeObject(productsList);
-            Console.WriteLine("Lists of products: ");
-            Console.WriteLine(jsonList);
+            Console.WriteLine($"Lists of products:\n{jsonList}");
             Console.WriteLine(new string('-', 50));
 
             string jsonSizes = @"['Small', 'Medium', 'Large']";
