@@ -9,7 +9,7 @@ namespace DbFirstDemo
     {
         static void Main() {
             var context = new SoftUniContext();
-            Console.WriteLine(GetEmployeesFromSalesAndMarketing(context));
+            Console.WriteLine(GetEmployeesWorkingOnClassicVest(context));
         }
 
         private static object AllEmployees(SoftUniContext context) {
@@ -135,10 +135,30 @@ namespace DbFirstDemo
         }
 
         private static string GetEmployeesWorkingOnClassicVest(SoftUniContext context) {
-            var employees = context.Projects
-                .Where(x => x.ProjectId == 1)
-                .Select(x=> new {
+            //samo da kaja che tazi krasota mi izpurji mozuka i 2-ri put nqma da q pravq
+            var employees = context.Employees
+                .Join(context.EmployeesProjects,
+                    e => e.EmployeeId,
+                    ep => ep.EmployeeId,
+                    (e, ep) => new {e, ep})
+                .Join(context.Projects,
+                    ep => ep.ep.ProjectId,
+                    proj => proj.ProjectId,
+                    (ep, proj) => new {ep, proj})
+                .Where(x => x.proj.Name == "Classic Vest")
+                .Select(x => new {
+                    x.ep.e.FirstName,
+                    x.ep.e.LastName,
+                    x.proj.Name
                 })
+                .ToList();
+
+            var sb = new StringBuilder();
+            foreach (var e in employees) {
+                sb.AppendLine($"{e.FirstName} {e.LastName} {e.Name}");
+            }
+
+            return sb.ToString().TrimEnd();
         }
     }
 }
