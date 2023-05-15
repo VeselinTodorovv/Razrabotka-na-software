@@ -10,7 +10,7 @@ namespace Data
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlServer("Server=.; Integrated Security=true; Database=ProductDB");
+            optionsBuilder.UseSqlServer("Server=.; Integrated Security=true; Database=StudentDB");
         }
         
         public DbSet<Students> Students { get; set; }

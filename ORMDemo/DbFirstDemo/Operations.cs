@@ -63,7 +63,7 @@ namespace DbFirstDemo {
         }
 
         public static int EmployeesCount(SoftUniContext context) {
-            return context.Employees.ToArray().Length;
+            return context.Employees.Count();
         }
 
         public static string GetEmployeesWithFirstNameStartWithN(SoftUniContext context) {
@@ -121,7 +121,7 @@ namespace DbFirstDemo {
                 .Select(x => new {
                     x.Employee.FirstName,
                     x.Employee.LastName,
-                    x.Project.Name,
+                    x.Project.Name
                 })
                 .OrderBy(x => x.FirstName)
                 .ToList();

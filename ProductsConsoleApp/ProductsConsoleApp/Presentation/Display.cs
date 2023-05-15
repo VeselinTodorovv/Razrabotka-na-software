@@ -9,9 +9,9 @@ namespace ProductsConsoleApp.Presentation
         public Display() {
             Input();
         }
-        
-        private int closeOperationId = 6;
-        private ProductBusiness _productBusiness = new();
+
+        private readonly int _closeOperationId = 6;
+        private readonly ProductBusiness _productBusiness = new();
 
         private void ShowMenu() {
             Console.WriteLine(new string('-', 40));
@@ -50,7 +50,7 @@ namespace ProductsConsoleApp.Presentation
                         break;
                 }
                 
-            } while (operation != closeOperationId);
+            } while (operation != _closeOperationId);
         }
 
         private void Add() {

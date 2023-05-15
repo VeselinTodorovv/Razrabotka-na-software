@@ -14,5 +14,6 @@ namespace FDMCApp.Data
         {
         }
         public DbSet<FDMCApp.Models.Cat> Cat { get; set; }
+        public DbSet<FDMCApp.Models.Dog> Dog { get; set; }
     }
 }

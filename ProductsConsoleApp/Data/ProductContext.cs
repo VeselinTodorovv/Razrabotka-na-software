@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class ProductContext : DbContext
+    public sealed class ProductContext : DbContext
     {
         public ProductContext() {
             Database.EnsureCreated();
