@@ -10,17 +10,25 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Dogs" asp-action="All" method="get">
+    <p>
+        Breed: <input type="text" name="BreedFilter"/>
+        Name: <input type="text" name="NameFilter"/>
+        <input type="submit" value="filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Breed)
+                <a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Breed)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Picture)
@@ -44,11 +52,11 @@
                 <img src="@Html.DisplayFor(modelItem => item.Picture)" alt="image" width="100px" />
             </td>
             
-            @*<td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>*@
+                <a asp-action="Details" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Details</a>
+            </td>
         </tr>
 }
     </tbody>

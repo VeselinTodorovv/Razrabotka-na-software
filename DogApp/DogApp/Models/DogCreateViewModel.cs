@@ -22,6 +22,7 @@ namespace DogApp.Models
         [StringLength(50, MinimumLength = 3)]
         public string Breed { get; set; }
 
+        [Display(Name = "Dog Picture")]
         public string Picture { get; set; }
     }
 }

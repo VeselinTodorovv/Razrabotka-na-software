@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using DogApp.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using DogApp.Models;
 
 namespace DogApp.Data
 {
@@ -15,5 +16,9 @@ namespace DogApp.Data
         }
 
         public DbSet<Dog> Dogs { get; set; }
+
+        public DbSet<DogApp.Models.DogCreateViewModel> DogCreateViewModel { get; set; }
+
+        public DbSet<DogApp.Models.DogDetailsViewModel> DogDetailsViewModel { get; set; }
     }
 }
