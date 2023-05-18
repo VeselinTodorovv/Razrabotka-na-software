@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DogApp.Data;
 using DogApp.Domain;
 using DogApp.Models;
@@ -27,7 +25,7 @@ namespace DogApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Dog dogFormDb = new Dog
+                var dogFormDb = new Dog
                 {
                     Name = bindingModel.Name,
                     Age = bindingModel.Age,
@@ -42,6 +40,23 @@ namespace DogApp.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult Success() {
+            return View();
+        }
+
+        public IActionResult All() {
+            List<DogAllViewModel> dogs = _context.Dogs
+                .Select(x => new DogAllViewModel {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Age = x.Age,
+                    Breed = x.Breed,
+                    Picture = x.Picture
+                }).ToList();
+
+            return View(dogs);
         }
     }
 }
