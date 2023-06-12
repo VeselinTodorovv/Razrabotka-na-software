@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using ASPEventures.Data;
@@ -24,6 +25,7 @@ namespace ASPEventures.Controllers
         {
             var events = _context.Events
                 .Select(eventFromDb => new EventAllViewModel {
+                    Id = eventFromDb.Id,
                     Name = eventFromDb.Name,
                     Place = eventFromDb.Place,
                     Start = eventFromDb.Start.ToString("dd-MMM-yyyy HH:mm", CultureInfo.InvariantCulture),
@@ -43,25 +45,54 @@ namespace ASPEventures.Controllers
         [HttpPost]
         public IActionResult Create(EventCreateBindingModel model)
         {
-            if (ModelState.IsValid) {
-                string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Event eventForDb = new Event {
-                    Name = model.Name,
-                    Place = model.Place,
-                    Start = model.Start,
-                    End = model.End,
-                    TotalTickets = model.TotalTickets,
-                    TicketPrice = model.TicketPrice,
-                    OwnerId = currentUserId
-                };
+            if (!ModelState.IsValid) return View();
+            
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var eventForDb = new Event {
+                Name = model.Name,
+                Place = model.Place,
+                Start = model.Start,
+                End = model.End,
+                TotalTickets = model.TotalTickets,
+                TicketPrice = model.TicketPrice,
+                OwnerId = currentUserId
+            };
 
-                _context.Events.Add(eventForDb);
-                _context.SaveChanges();
+            _context.Events.Add(eventForDb);
+            _context.SaveChanges();
 
-                return RedirectToAction("All");
+            return RedirectToAction("All");
+        }
+
+        [Authorize]
+        public IActionResult My(string searchString) {
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.SingleOrDefault(u => u.Id == currentUserId);
+            if (user == null) {
+                return null;
             }
 
-            return View();
+            List<OrderListingViewModel> orders = _context.Orders
+                .Where(o => o.CustomerId == user.Id)
+                .Select(o => new OrderListingViewModel {
+                    Id = o.Id,
+                    EventId = o.EventId,
+                    EventName = o.Event.Name,
+                    EventStart = o.Event.Start.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+                    EventEnd = o.Event.End.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+                    EventPlace = o.Event.Place,
+                    OrderedOn = o.OrderedOn.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
+                    CustomerId = o.CustomerId,
+                    CustomerUsername = o.Customer.UserName,
+                    TicketsCount = o.TicketsCount
+                })
+                .ToList();
+
+            if (!string.IsNullOrEmpty(searchString)) {
+                orders = orders.Where(o => o.EventPlace.Contains(searchString)).ToList();
+            }
+
+            return View(orders);
         }
     }
 }

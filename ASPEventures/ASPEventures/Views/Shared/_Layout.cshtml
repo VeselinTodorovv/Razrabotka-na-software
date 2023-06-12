@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,7 +22,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (this.User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item active">
                                 <div class="dropdown show">
@@ -35,9 +36,18 @@
 
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item" href="/Events/All">All Events</a>
-                                        <a class="dropdown-item" href="/Events/Create">Create Event</a>
+                                        
+                                        @if (User.IsInRole("Administrator")) {
+                                            <a class="dropdown-item" href="/Events/Create">Create Event</a>
+                                        }
                                     </div>
                                 </div>
+                            </li>
+                        }
+                        @if (User.IsInRole("Administrator")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Orders" asp-action="Index">Orders</a>
+                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Users</a>
                             </li>
                         }
                     </ul>

@@ -48,6 +48,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Owner)
             </td>
+            <td>
+                @await Html.PartialAsync("_OrderPartialView", new OrderCreateBindingModel {
+                            EventId = item.Id
+                       })
+            </td>
         </tr>
 }
     </tbody>
