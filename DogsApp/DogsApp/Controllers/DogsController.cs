@@ -17,7 +17,7 @@ namespace DogsApp.Controllers
         }
 
         // GET: DogsController
-        public ActionResult Index()
+        public ActionResult Index(string searchStringBreed, string searchStringName)
         {
             List<DogAllViewModel> all = _context.Dogs
                 .Select(dog => new DogAllViewModel
@@ -30,13 +30,45 @@ namespace DogsApp.Controllers
                 })
                 .ToList();
 
+            if (!string.IsNullOrEmpty(searchStringName) && !string.IsNullOrEmpty(searchStringBreed))
+            {
+                all = all.Where(d => d.Breed.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
+            }
+            else if (!string.IsNullOrEmpty(searchStringBreed))
+            {
+                all = all.Where(d => d.Breed.Contains(searchStringBreed)).ToList();
+            }
+            else if (!string.IsNullOrEmpty(searchStringName))
+            {
+                all = all.Where(d => d.Name.Contains(searchStringName)).ToList();
+            }
+
             return View(all);
         }
 
         // GET: DogsController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Dog? dog = _context.Dogs.FirstOrDefault(dog => dog.Id == id);
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
+            DogDetailsViewModel viewModel = new()
+            {
+                Id = dog.Id,
+                Name = dog.Name,
+                Age = dog.Age,
+                Breed = dog.Breed,
+            };
+
+            return View(viewModel);
         }
 
         // GET: DogsController/Create
@@ -76,45 +108,97 @@ namespace DogsApp.Controllers
         }
 
         // GET: DogsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Dog? item = _context.Dogs.FirstOrDefault(dog => dog.Id == id);
+            if(item == null)
+            {
+                return NotFound();
+            }
+
+            DogEditViewModel viewModel = new()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Age = item.Age,
+                Breed = item.Breed,
+                Picture = item.Picture
+            };
+
+            return View(viewModel);
         }
 
         // POST: DogsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, DogEditViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                Dog dog = new()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Age = viewModel.Age,
+                    Breed = viewModel.Breed,
+                    Picture = viewModel.Picture
+                };
+
+                _context.Dogs.Update(dog);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(viewModel);
         }
 
         // GET: DogsController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Dog? item = _context.Dogs.FirstOrDefault(d => d.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            DogEditViewModel viewModel = new()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Age = item.Age,
+                Breed = item.Breed,
+                Picture = item.Picture
+            };
+
+            return View(viewModel);
         }
 
         // POST: DogsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
+            Dog? item = _context.Dogs.FirstOrDefault(d => d.Id == id);
+            if (item == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+
+            _context.Dogs.Remove(item);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Dogs");
         }
     }
 }
