@@ -12,11 +12,13 @@ namespace DogsApp.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IDogService _dogService;
+        private readonly IBreedService _breedService;
 
-        public DogsController(ApplicationDbContext context, IDogService dogService)
+        public DogsController(ApplicationDbContext context, IDogService dogService, IBreedService breedService)
         {
             _context = context;
             _dogService = dogService;
+            _breedService = breedService;
         }
 
         // GET: DogsController
@@ -59,6 +61,15 @@ namespace DogsApp.Controllers
         // GET: DogsController/Create
         public ActionResult Create()
         {
+            var dog = new DogCreateViewModel();
+            dog.Breeds = _breedService.GetBreeds()
+                .Select(c => new BreedPairViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                })
+                .ToList();
+
             return View();
         }
 

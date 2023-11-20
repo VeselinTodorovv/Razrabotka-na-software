@@ -9,14 +9,14 @@ namespace DogsApp.Infrastructure.Data.Domain
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Range(0, 30)]
         public int Age { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Breed { get; set; }
+        public int BreedId { get; set; }
+        public Breed Breed { get; set; } = null!;
 
         public string? Picture { get; set; }
     }

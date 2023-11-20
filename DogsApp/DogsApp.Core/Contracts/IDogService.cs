@@ -10,8 +10,8 @@ namespace DogsApp.Core.Contracts
 {
     public interface IDogService
     {
-        bool Create(string name, int age, string breed, string picture);
-        bool Update(int dogId, string name, int age, string breed, string picture);
+        bool Create(string name, int age, int breedId, string? picture);
+        bool Update(int dogId, string name, int age, int breedId, string? picture);
         List<Dog> GetDogs();
         Dog GetDogById(int dogId);
         bool RemoveById(int dogId);

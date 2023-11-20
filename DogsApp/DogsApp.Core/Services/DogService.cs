@@ -19,13 +19,13 @@ namespace DogsApp.Core.Services
             _context = context;
         }
 
-        public bool Create(string name, int age, string breed, string picture)
+        public bool Create(string name, int age, int breedId, string picture)
         {
             Dog item = new Dog()
             {
                 Name = name,
                 Age = age,
-                Breed = breed,
+                Breed = _context.Breeds.Find(breedId),
                 Picture = picture
             };
 
@@ -50,11 +50,11 @@ namespace DogsApp.Core.Services
 
             if (!string.IsNullOrEmpty(searchStringName) && !string.IsNullOrEmpty(searchStringBreed))
             {
-                dogs = dogs.Where(d => d.Breed.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
             }
             else if (!string.IsNullOrEmpty(searchStringBreed))
             {
-                dogs = dogs.Where(d => d.Breed.Contains(searchStringBreed)).ToList();
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed)).ToList();
             }
             else if (!string.IsNullOrEmpty(searchStringName))
             {
@@ -76,14 +76,14 @@ namespace DogsApp.Core.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool Update(int dogId, string name, int age, string breed, string picture)
+        public bool Update(int dogId, string name, int age, int breedId, string? picture)
         {
-            Dog dog = new Dog
+            Dog dog = new()
             {
                 Id = dogId,
                 Name = name,
                 Age = age,
-                Breed = breed,
+                Breed = _context.Breeds.Find(breedId),
                 Picture = picture
             };
 
