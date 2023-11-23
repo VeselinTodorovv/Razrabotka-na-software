@@ -30,7 +30,7 @@ namespace DogsApp.Controllers
                     Id = dog.Id,
                     Name = dog.Name,
                     Age = dog.Age,
-                    Breed = dog.Breed,
+                    BreedName = dog.Breed.Name,
                     Picture = dog.Picture
                 })
                 .ToList();
@@ -52,7 +52,8 @@ namespace DogsApp.Controllers
                 Id = item.Id,
                 Name = item.Name,
                 Age = item.Age,
-                Breed = item.Breed,
+                BreedName = item.Breed.Name,
+                Picture = item.Picture
             };
 
             return View(viewModel);
@@ -61,14 +62,16 @@ namespace DogsApp.Controllers
         // GET: DogsController/Create
         public ActionResult Create()
         {
-            var dog = new DogCreateViewModel();
-            dog.Breeds = _breedService.GetBreeds()
+            var dog = new DogCreateViewModel
+            {
+                Breeds = _breedService.GetBreeds()
                 .Select(c => new BreedPairViewModel()
                 {
                     Id = c.Id,
                     Name = c.Name,
                 })
-                .ToList();
+                .ToList()
+            };
 
             return View();
         }
@@ -76,18 +79,18 @@ namespace DogsApp.Controllers
         // POST: DogsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DogCreateViewModel viewModel)
+        public ActionResult Create([FromForm] DogCreateViewModel dog)
         {
             if (ModelState.IsValid)
             {
-                var created = _dogService.Create(viewModel.Name, viewModel.Age, viewModel.Breed, viewModel.Picture);
-                if (created)
+                var createdId = _dogService.Create(dog.Name, dog.Age, dog.BreedId, dog.Picture);
+                if (createdId)
                 {
-                    return RedirectToAction("Success");
+                    return RedirectToAction(nameof(Index));
                 }
             }
 
-            return View();
+            return View(dog);
         }
 
         public IActionResult Success()
@@ -109,8 +112,16 @@ namespace DogsApp.Controllers
                 Id = item.Id,
                 Name = item.Name,
                 Age = item.Age,
-                Breed = item.Breed,
-                Picture = item.Picture
+                BreedId = item.BreedId,
+                Picture = item.Picture,
+
+                Breeds = _breedService.GetBreeds()
+                .Select(c => new BreedPairViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                })
+                .ToList()
             };
 
             return View(dog);
@@ -123,7 +134,7 @@ namespace DogsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var updated = _dogService.Update(id, viewModel.Name, viewModel.Age, viewModel.Breed, viewModel.Picture);
+                var updated = _dogService.Update(id, viewModel.Name, viewModel.Age, viewModel.BreedId, viewModel.Picture);
                 if (updated)
                 {
                     return RedirectToAction("Index");
@@ -142,12 +153,12 @@ namespace DogsApp.Controllers
                 return NotFound();
             }
 
-            DogEditViewModel viewModel = new()
+            DogDetailsViewModel viewModel = new()
             {
                 Id = item.Id,
                 Name = item.Name,
                 Age = item.Age,
-                Breed = item.Breed,
+                BreedName = item.Breed.Name,
                 Picture = item.Picture
             };
 

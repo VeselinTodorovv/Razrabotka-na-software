@@ -16,7 +16,7 @@ namespace DogsApp.Infrastructure.Data.Domain
 
         [Required]
         public int BreedId { get; set; }
-        public Breed Breed { get; set; } = null!;
+        public virtual Breed Breed { get; set; } = null!;
 
         public string? Picture { get; set; }
     }

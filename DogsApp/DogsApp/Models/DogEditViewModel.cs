@@ -15,9 +15,12 @@ namespace DogsApp.Models
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string Breed { get; set; }
+        [Display(Name = "Breed")]
+        public int BreedId { get; set; }
 
         [Display(Name = "Dog Picture")]
         public string? Picture { get; set; }
+
+        public virtual List<BreedPairViewModel> Breeds { get; set; } = new List<BreedPairViewModel>();
     }
 }
