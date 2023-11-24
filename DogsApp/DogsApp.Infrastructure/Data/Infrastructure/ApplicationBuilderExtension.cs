@@ -20,6 +20,7 @@ namespace DogsApp.Infrastructure.Data.Infrastructure
             var services = serviceScope.ServiceProvider;
 
             var data = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            SeedBreeds(data);
 
             return app;
         }

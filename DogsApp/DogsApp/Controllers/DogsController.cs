@@ -73,7 +73,7 @@ namespace DogsApp.Controllers
                 .ToList()
             };
 
-            return View();
+            return View(dog);
         }
 
         // POST: DogsController/Create
@@ -90,7 +90,7 @@ namespace DogsApp.Controllers
                 }
             }
 
-            return View(dog);
+            return View();
         }
 
         public IActionResult Success()

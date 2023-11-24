@@ -8,13 +8,11 @@ namespace DogsApp.Models
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Range(0, 30)]
         public int Age { get; set; }
 
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Breed")]
         public int BreedId { get; set; }
 

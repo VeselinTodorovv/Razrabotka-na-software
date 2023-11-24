@@ -21,7 +21,7 @@ namespace DogsApp.Core.Services
 
         public bool Create(string name, int age, int breedId, string picture)
         {
-            Dog item = new Dog()
+            Dog item = new()
             {
                 Name = name,
                 Age = age,
@@ -41,26 +41,6 @@ namespace DogsApp.Core.Services
         public List<Dog> GetDogs()
         {
             List<Dog> dogs = _context.Dogs.ToList();
-            return dogs;
-        }
-
-        public List<Dog> GetDogs(string searchStringBreed, string searchStringName)
-        {
-            List<Dog> dogs = _context.Dogs.ToList();
-
-            if (!string.IsNullOrEmpty(searchStringName) && !string.IsNullOrEmpty(searchStringBreed))
-            {
-                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
-            }
-            else if (!string.IsNullOrEmpty(searchStringBreed))
-            {
-                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed)).ToList();
-            }
-            else if (!string.IsNullOrEmpty(searchStringName))
-            {
-                dogs = dogs.Where(d => d.Name.Contains(searchStringName)).ToList();
-            }
-
             return dogs;
         }
 
@@ -89,6 +69,26 @@ namespace DogsApp.Core.Services
 
             _context.Dogs.Update(dog);
             return _context.SaveChanges() != 0;
+        }
+
+        public List<Dog> GetDogs(string searchStringBreed, string searchStringName)
+        {
+            List<Dog> dogs = _context.Dogs.ToList();
+
+            if (!string.IsNullOrEmpty(searchStringName) && !string.IsNullOrEmpty(searchStringBreed))
+            {
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
+            }
+            else if (!string.IsNullOrEmpty(searchStringBreed))
+            {
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed)).ToList();
+            }
+            else if (!string.IsNullOrEmpty(searchStringName))
+            {
+                dogs = dogs.Where(d => d.Name.Contains(searchStringName)).ToList();
+            }
+
+            return dogs;
         }
     }
 }
