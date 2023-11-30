@@ -34,6 +34,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Picture)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -53,6 +56,9 @@
                 <td>
                     <img src="@Html.DisplayFor(modelItem => item.Picture)" alt="Image" width="100" />
                     @*@Html.DisplayFor(modelItem => item.Picture)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
 
                 <td>

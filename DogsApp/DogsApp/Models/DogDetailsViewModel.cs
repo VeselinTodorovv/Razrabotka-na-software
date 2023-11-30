@@ -16,5 +16,7 @@ namespace DogsApp.Models
         public string BreedName { get; set; } = null!;
 
         public string? Picture { get; set; }
+
+        public string FullName { get; set; } = null!;
     }
 }

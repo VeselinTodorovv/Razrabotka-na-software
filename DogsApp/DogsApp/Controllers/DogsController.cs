@@ -1,12 +1,16 @@
-﻿using DogsApp.Core.Contracts;
+﻿using System.Security.Claims;
+
+using DogsApp.Core.Contracts;
 using DogsApp.Infrastructure.Data;
 using DogsApp.Infrastructure.Data.Domain;
 using DogsApp.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DogsApp.Controllers
 {
+    [Authorize]
     public class DogsController : Controller
     {
 
@@ -22,6 +26,7 @@ namespace DogsApp.Controllers
         }
 
         // GET: DogsController
+        [AllowAnonymous]
         public ActionResult Index(string searchStringBreed, string searchStringName)
         {
             List<DogAllViewModel> all = _dogService.GetDogs(searchStringBreed, searchStringName)
@@ -31,7 +36,8 @@ namespace DogsApp.Controllers
                     Name = dog.Name,
                     Age = dog.Age,
                     BreedName = dog.Breed.Name,
-                    Picture = dog.Picture
+                    Picture = dog.Picture,
+                    FullName = dog.Owner.FirstName + " " + dog.Owner.LastName
                 })
                 .ToList();
 
@@ -53,7 +59,8 @@ namespace DogsApp.Controllers
                 Name = item.Name,
                 Age = item.Age,
                 BreedName = item.Breed.Name,
-                Picture = item.Picture
+                Picture = item.Picture,
+                FullName = item.Owner.FirstName + " " + item.Owner.LastName
             };
 
             return View(viewModel);
@@ -83,7 +90,8 @@ namespace DogsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createdId = _dogService.Create(dog.Name, dog.Age, dog.BreedId, dog.Picture);
+                string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var createdId = _dogService.Create(dog.Name, dog.Age, dog.BreedId, dog.Picture, currentUserId);
                 if (createdId)
                 {
                     return RedirectToAction(nameof(Index));
