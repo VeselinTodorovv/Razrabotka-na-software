@@ -15,7 +15,7 @@ namespace WebShopApp.Infrastructure.Data.Domain
         [Required]
         [StringLength(30, MinimumLength = 3)]
         public string CategoryName { get; set; } = null!;
-
+            
         public virtual IEnumerable<Product> Products { get; set; } = new List<Product>();
     }
 }
