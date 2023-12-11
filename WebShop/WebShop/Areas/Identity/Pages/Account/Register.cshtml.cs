@@ -146,6 +146,8 @@ namespace WebShopApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    _userManager.AddToRoleAsync(user, "Client").Wait();
+                    _logger.LogInformation("User added to role Client");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
