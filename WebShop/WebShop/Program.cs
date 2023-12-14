@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 
 using WebShop.Data;
 using WebShop.Infrastructure.Data;
 
+using WebShopApp.Core.Contracts;
+using WebShopApp.Core.Services;
 using WebShopApp.Infrastructure.Data.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,13 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseLazyLoadingProxies().
+    UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IBrandService, BrandService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

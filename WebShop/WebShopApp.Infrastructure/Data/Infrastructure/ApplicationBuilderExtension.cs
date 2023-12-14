@@ -106,13 +106,14 @@ namespace WebShopApp.Infrastructure.Data.Infrastructure
 
             dataBrand.Brands.AddRange(new[]
             {
-                new Brand {BrandName = "Laptop"},
-                new Brand {BrandName = "Computer"},
-                new Brand {BrandName = "Monitor"},
-                new Brand {BrandName = "Accessory"},
-                new Brand {BrandName = "TV"},
-                new Brand {BrandName = "Mobile Phone"},
-                new Brand {BrandName = "Smart Watch"}
+                new Brand {BrandName = "Acer"},
+                new Brand {BrandName = "Asus"},
+                new Brand {BrandName = "Apple"},
+                new Brand {BrandName = "Dell"},
+                new Brand {BrandName = "HP"},
+                new Brand {BrandName = "Huawei"},
+                new Brand {BrandName = "Lenovo"},
+                new Brand {BrandName = "Samsung"}
             });
 
             dataBrand.SaveChanges();
