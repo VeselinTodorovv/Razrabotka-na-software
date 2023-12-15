@@ -18,12 +18,12 @@ namespace WebShopApp.Infrastructure.Data.Domain
         [Required]
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public virtual Product Product { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
-        public ApplicationUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         public int Quantity { get; set; }
 

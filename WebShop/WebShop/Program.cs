@@ -8,14 +8,15 @@ using WebShop.Infrastructure.Data;
 using WebShopApp.Core.Contracts;
 using WebShopApp.Core.Services;
 using WebShopApp.Infrastructure.Data.Domain;
+using WebShopApp.Infrastructure.Data.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseLazyLoadingProxies().
-    UseSqlServer(connectionString));
+    options.UseLazyLoadingProxies()
+    .UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -25,8 +26,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IBrandService, BrandService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
+
+app.PrepareDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
