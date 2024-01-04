@@ -8,10 +8,13 @@ namespace WebShopApp.Core.Services
     public class OrderService : IOrderService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
 
-        public OrderService(ApplicationDbContext context)
+
+        public OrderService(ApplicationDbContext context, IProductService productService)
         {
             _context = context;
+            _productService = productService;
         }
 
         public bool Create(int productId, string userId, int quantity)
@@ -40,7 +43,12 @@ namespace WebShopApp.Core.Services
             return _context.SaveChanges() != 0;
         }
 
-        public List<Order> GetOrderByUser(string userId)
+        public Order GetOrderById(int orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Order> GetOrdersByUser(string userId)
         {
             return _context.Orders.Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.OrderDate)

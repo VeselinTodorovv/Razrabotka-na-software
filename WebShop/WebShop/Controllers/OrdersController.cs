@@ -1,5 +1,7 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,18 +23,20 @@ namespace WebShopApp.Controllers
         }
 
         // GET: OrdersController
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             var orders = _orderService.GetOrders()
-                .Select(x => new OrderCreateVM
+                .Select(x => new OrderIndexVM
                 {
                     Id = x.Id,
-                    OrderDate = x.OrderDate,
+                    OrderDate = x.OrderDate.ToString("dd-MMM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                    User = x.User.UserName,
                     Discount = x.Discount,
                     Price = x.Price,
                     Picture = x.Product.Picture,
                     ProductId = x.ProductId,
-                    ProductName = x.Product.ProductName,
+                    Product = x.Product.ProductName,
                     Quantity = x.Quantity,
                     TotalPrice = x.TotalPrice
                 })
@@ -135,6 +139,30 @@ namespace WebShopApp.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult MyOrders()
+        {
+            string currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            List<OrderIndexVM> orders = _orderService.GetOrdersByUser(currentUserId)
+                .Select(x => new OrderIndexVM
+                {
+                    Id = x.Id,
+                    Discount = x.Discount,
+                    OrderDate = x.OrderDate.ToString("dd-MMM-yyyy hh:mm", CultureInfo.InvariantCulture),
+                    UserId = currentUserId,
+                    User = x.User.UserName,
+                    ProductId = x.ProductId,
+                    Product = x.Product.ProductName,
+                    Picture = x.Product.Picture,
+                    Quantity = x.Quantity,
+                    Price = x.Price,
+                    TotalPrice = x.TotalPrice
+                })
+                .ToList();
+
+            return View(orders);
         }
     }
 }
