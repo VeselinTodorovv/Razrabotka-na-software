@@ -80,7 +80,7 @@ namespace WebShopApp.Controllers
         {
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var product = _productService.GetProductById(viewModel.Id);
+            var product = _productService.GetProductById(viewModel.ProductId);
             if (product == null || currentUserId == null || product.Quantity < viewModel.Quantity || product.Quantity == 0)
             {
                 return RedirectToAction("Denied", "Orders");

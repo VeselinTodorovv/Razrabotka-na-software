@@ -25,6 +25,7 @@ namespace WebShopApp.Infrastructure.Data.Domain
         public string UserId { get; set; } = null!;
         public virtual ApplicationUser User { get; set; } = null!;
 
+        [Range(1, 100)]
         public int Quantity { get; set; }
 
         public decimal Price { get; set; }

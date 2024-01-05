@@ -66,7 +66,7 @@ namespace WebShopApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async ActionResult Delete(ClientDeleteVM bindingModel)
+        public async Task<IActionResult> Delete(ClientDeleteVM bindingModel)
         {
             string id = bindingModel.Id;
             var user = await _userManager.FindByIdAsync(id);

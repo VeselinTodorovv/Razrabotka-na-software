@@ -19,7 +19,7 @@ namespace WebShopApp.Core.Services
 
         public bool Create(int productId, string userId, int quantity)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == productId);
+            var product = _context.Products.SingleOrDefault(x => x.Id == productId);
             if (product == null)
             {
                 return false;
@@ -27,12 +27,12 @@ namespace WebShopApp.Core.Services
 
             Order order = new()
             {
+                OrderDate = DateTime.Now,
+                ProductId = product.Id,
                 UserId = userId,
                 Quantity = quantity,
                 Discount = product.Discount,
-                OrderDate = DateTime.Now,
                 Price = product.Price,
-                ProductId = product.Id
             };
 
             product.Quantity -= quantity;
