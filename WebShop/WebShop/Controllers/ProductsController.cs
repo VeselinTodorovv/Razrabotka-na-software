@@ -48,6 +48,11 @@ namespace WebShopApp.Controllers
             return View(products);
         }
 
+        /*public ActionResult FilterByBrand()
+        {
+
+        }*/
+
         // GET: ProductsController/Details/5
         [AllowAnonymous]
         public ActionResult Details(int id)
