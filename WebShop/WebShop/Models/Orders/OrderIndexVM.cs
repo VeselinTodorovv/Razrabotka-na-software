@@ -1,9 +1,9 @@
 ﻿namespace WebShopApp.Models.Orders
 {
-    public class OrderIndexVM
+    public class OrderIndexVm
     {
         public int Id { get; set; }
-        public string OrderDate { get; set; }
+        public string OrderDate { get; set; } = null!;
         public string UserId { get; set; } = null!;
         public string User { get; set; } = null!;
 

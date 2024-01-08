@@ -28,8 +28,8 @@ namespace WebShopApp.Controllers
         [AllowAnonymous]
         public ActionResult Index(string searchStringBrandName, string searchStringCategoryName)
         {
-            List<ProductIndexVM> products = _productService.GetProducts(searchStringCategoryName, searchStringBrandName)
-                .Select(p => new ProductIndexVM
+            var products = _productService.GetProducts(searchStringCategoryName, searchStringBrandName)
+                .Select(p => new ProductIndexVm
                 {
                     Id = p.Id,
                     ProductName = p.ProductName,
@@ -43,8 +43,7 @@ namespace WebShopApp.Controllers
                     Quantity = p.Quantity
                 })
                 .ToList();
-
-
+            
             return View(products);
         }
 
@@ -57,13 +56,13 @@ namespace WebShopApp.Controllers
         [AllowAnonymous]
         public ActionResult Details(int id)
         {
-            Product product = _productService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            ProductDetailsVM vm = new()
+            ProductDetailsVm vm = new()
             { 
                 ProductName = product.ProductName,
                 BrandId = product.BrandId,
@@ -187,7 +186,7 @@ namespace WebShopApp.Controllers
                 return NotFound();
             }
 
-            ProductDeleteVM productDeleteVM = new()
+            ProductDeleteVm productDeleteVM = new()
             {
                 Id = product.Id,
                 BrandId = product.BrandId,

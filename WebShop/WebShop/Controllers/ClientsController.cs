@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using WebShopApp.Infrastructure.Data.Domain;
@@ -19,7 +18,7 @@ namespace WebShopApp.Controllers
         // GET: ClientsController
         public async Task<IActionResult> Index()
         {
-            var allUsers = _userManager.Users.Select(u => new ClientIndexVM
+            var allUsers = _userManager.Users.Select(u => new ClientIndexVm
             {
                 Id = u.Id,
                 Address = u.Address,
@@ -34,16 +33,16 @@ namespace WebShopApp.Controllers
 
             foreach (var user in allUsers)
             {
-                user.isAdmin = adminIds.Contains(user.Id);
+                user.IsAdmin = adminIds.Contains(user.Id);
             }
 
-            var users = allUsers.Where(x => x.isAdmin == false).OrderBy(x => x.UserName).ToList();
+            var users = allUsers.Where(x => x.IsAdmin == false).OrderBy(x => x.UserName).ToList();
 
             return View(users);
         }
 
         //GET
-        public ActionResult Detele(string id)
+        public ActionResult Delete(string id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
 
@@ -52,7 +51,7 @@ namespace WebShopApp.Controllers
                 return NotFound();
             }
 
-            ClientDeleteVM clientToDelete = new ClientDeleteVM
+            var clientToDelete = new ClientDeleteVm
             {
                 Address = user.Address,
                 Email = user.Email,
@@ -66,7 +65,7 @@ namespace WebShopApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(ClientDeleteVM bindingModel)
+        public async Task<IActionResult> Delete(ClientDeleteVm bindingModel)
         {
             string id = bindingModel.Id;
             var user = await _userManager.FindByIdAsync(id);
@@ -75,7 +74,7 @@ namespace WebShopApp.Controllers
                 return NotFound();
             }
 
-            IdentityResult result = await _userManager.DeleteAsync(user);
+            var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
             {
                 return NotFound();

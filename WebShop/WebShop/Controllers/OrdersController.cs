@@ -27,7 +27,7 @@ namespace WebShopApp.Controllers
         public ActionResult Index()
         {
             var orders = _orderService.GetOrders()
-                .Select(x => new OrderIndexVM
+                .Select(x => new OrderIndexVm
                 {
                     Id = x.Id,
                     OrderDate = x.OrderDate.ToString("dd-MMM-yyyy hh:mm", CultureInfo.InvariantCulture),
@@ -54,7 +54,7 @@ namespace WebShopApp.Controllers
         // GET: OrdersController/Create
         public ActionResult Create(int id)
         {
-            Product product = _productService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if(product == null)
             {
                 return NotFound();
@@ -145,8 +145,8 @@ namespace WebShopApp.Controllers
         {
             string currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            List<OrderIndexVM> orders = _orderService.GetOrdersByUser(currentUserId)
-                .Select(x => new OrderIndexVM
+            var orders = _orderService.GetOrdersByUser(currentUserId)
+                .Select(x => new OrderIndexVm
                 {
                     Id = x.Id,
                     Discount = x.Discount,

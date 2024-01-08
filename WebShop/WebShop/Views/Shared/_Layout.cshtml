@@ -27,13 +27,17 @@
                             data-bs-toggle="dropdown" aria-expanded="false"> Products </button>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/Products?SearchStringBrandName=dell&SearchStringCategoryName=">DELL</a></li>
-                                <li><a class="dropdown-item" href="/Products?SearchStringBrandName=acer&SearchStringCategoryName=">ACER</a></li>
-                                <li><a class="dropdown-item" href="/Products?SearchStringBrandName=hp&SearchStringCategoryName=">HP</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-searchStringBrandName="dell">DELL</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-searchStringBrandName="acer">ACER</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-searchStringBrandName="hp">HP</a></li>
                             </ul>
 
                         </li>
-                        @if(this.User.Identity.IsAuthenticated)
+
+                        @{
+                            System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                        }
+                        @if(User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="MyOrders">My Orders</a>

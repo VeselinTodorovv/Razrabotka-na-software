@@ -22,7 +22,7 @@ namespace WebShopApp.Core.Services
 
         public bool Create(string name, int brandId, int categoryId, string picture, int quantity, decimal price, decimal discount)
         {
-            Product product = new Product
+            var product = new Product
             {
                 ProductName = name,
                 Brand = _context.Brands.Find(brandId),
@@ -84,8 +84,7 @@ namespace WebShopApp.Core.Services
 
         public bool Update(int productId, string name, int brandId, int categoryId, string picture, int quantity, decimal price, decimal discount)
         {
-            //TODO: get product, don't create new one
-            Product product = new Product
+            var product = new Product
             {
                 Id = productId,
                 ProductName = name,
